@@ -1,0 +1,7 @@
+PRODUCER non-keyed-json-message
+topic: first-topic
+{
+    "type": "my-sample-event"
+}
+
+###

@@ -1,5 +1,7 @@
 package xyz.ascii.unleashpoc.service.a;
 
+import java.time.OffsetDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,10 @@ public class Resource {
 
     @GetMapping
     public Mono<String> getValue() {
+        return getMessage().map(message -> String.format("%s %s", OffsetDateTime.now(), message));
+    }
+
+    private Mono<String> getMessage() {
         if (unleash.isEnabled("my-toggle")) {
             return Mono.just("The toggled value!");
         } else {
