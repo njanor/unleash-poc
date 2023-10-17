@@ -10,6 +10,10 @@ services:
     depends_on:
       - unleash-edge-blue-zone
       - kafka
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
     command: sleep infinity
     networks:
       - blue-zone
