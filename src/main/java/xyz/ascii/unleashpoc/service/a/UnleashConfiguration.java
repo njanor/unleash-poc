@@ -13,13 +13,16 @@ public class UnleashConfiguration {
 
     @Value("${unleash.apikey}")
     private String unleashApiKey;
+
+    @Value("${unleash.api}")
+    private String unleashApi;
     
     @Bean
     public Unleash unleash() {
         UnleashConfig config = UnleashConfig.builder()
         .appName("xyz.ascii.unleashpoc.service.a")
         .instanceId("1")
-        .unleashAPI("http://unleash:4242/api/")
+        .unleashAPI(unleashApi)
         .environment("development")
         .apiKey(unleashApiKey)
         .build();

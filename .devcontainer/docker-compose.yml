@@ -8,16 +8,39 @@ services:
     volumes:
       - ../..:/workspaces:cached
     depends_on:
-      - unleash
+      - unleash-edge-blue-zone
       - kafka
     command: sleep infinity
     networks:
       - blue-zone
     environment:
       UNLEASH_APIKEY: '*:development.serviceA'
+      UNLEASH_API: http://unleash-edge-blue-zone:3063/api
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_TOPIC: first-topic
   
+  unleash-edge-green-zone:
+    image: unleashorg/unleash-edge:latest
+    depends_on:
+      - unleash
+    command: edge
+    environment:
+      UPSTREAM_URL: http://unleash:4242
+    networks:
+      - green-zone
+      - unleash-green-vpn
+
+  unleash-edge-blue-zone:
+    image: unleashorg/unleash-edge:latest
+    depends_on:
+      - unleash
+    command: edge
+    environment:
+      UPSTREAM_URL: http://unleash:4242
+    networks:
+      - blue-zone
+      - unleash-blue-vpn
+
   unleash:
     image: unleashorg/unleash-server:latest
     depends_on:
@@ -32,7 +55,8 @@ services:
       DATABASE_SSL: false
       INIT_CLIENT_API_TOKENS: '*:development.serviceA'
     networks:
-      - blue-zone
+      - unleash-blue-vpn
+      - unleash-green-vpn
       - unleash-internal
 
   unleashDb:
@@ -86,6 +110,9 @@ volumes:
   postgres-data:
 
 networks:
+  kafka-internal:
   unleash-internal:
   blue-zone:
-  kafka-internal:
+  green-zone:
+  unleash-blue-vpn:
+  unleash-green-vpn:
