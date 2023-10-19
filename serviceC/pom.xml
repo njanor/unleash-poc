@@ -12,7 +12,7 @@
 	<groupId>xyz.ascii.unleashpoc.service</groupId>
 	<artifactId>c</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Service B for Unleash PoC</name>
+	<name>Service C for Unleash PoC</name>
 	<description>Simple service needed for running an Unleash PoC</description>
 	
     <properties>

@@ -20,7 +20,7 @@ public class UnleashConfiguration {
     @Bean
     public Unleash unleash() {
         UnleashConfig config = UnleashConfig.builder()
-        .appName("xyz.ascii.unleashpoc.service.a")
+        .appName("xyz.ascii.unleashpoc.service.c")
         .instanceId("1")
         .unleashAPI(unleashApi)
         .environment("development")
